@@ -25,7 +25,7 @@ mv 2l2qtree*.root 2l2qSelectedTrees
 ### 2D Templates ###
 
 #make selected trees as input for smoothing
-for model in spin0_all #spin2 DYjets TTBar Diboson
+for model in spin0_all spin2 DYjets TTBar Diboson
 do
 echo "running $model trees"
 #root -l -n -b -q getSelection.c\($model\) 
