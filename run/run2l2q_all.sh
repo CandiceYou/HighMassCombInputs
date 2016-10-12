@@ -8,7 +8,6 @@ fi
 
 
 ### Efficiency ###
-<<comment
 if [ ! -d "2l2qEfficiency" ]; then
   mkdir 2l2qEfficiency
 fi
@@ -22,10 +21,9 @@ done
 
 mv efficiency*.* 2l2qEfficiency
 mv 2l2qtree*.root 2l2qSelectedTrees
-comment
 
 ### 2D Templates ###
-<<comment
+
 #make selected trees as input for smoothing
 for model in spin0_all #spin2 DYjets TTBar Diboson
 do
@@ -38,7 +36,6 @@ mv 2l2qtree*.root 2l2qSelectedTrees
 #smoothing and normalization
 echo "running templates"
 bash run2l2q_Templ.sh
-comment
 
 ### Resolution ###
 for model in spin0_all
