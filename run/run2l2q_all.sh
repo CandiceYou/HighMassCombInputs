@@ -12,10 +12,9 @@ if [ ! -d "2l2qEfficiency" ]; then
   mkdir 2l2qEfficiency
 fi
 
-for model in spin0_ggH #spin0_VBF spin2 
+for model in spin0_ggH spin0_VBF spin2 
 do
 echo "running $model efficiency"
-#root -l -n -b -q getEfficiency.c\($model\) 
 root -l -n -b -q all.c\(${model},\"eff\"\)
 done
 
@@ -28,7 +27,6 @@ mv 2l2qtree*.root 2l2qSelectedTrees
 for model in spin0_all spin2 DYjets TTBar Diboson
 do
 echo "running $model trees"
-#root -l -n -b -q getSelection.c\($model\) 
 root -l -n -b -q all.c\(${model},\"sel\"\)
 done
 mv 2l2qtree*.root 2l2qSelectedTrees
