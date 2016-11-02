@@ -50,12 +50,12 @@ void HighMass::checkReso(const char* cType){
   double frac=0.1;
 
   for (int ip=0; ip<npars; ip++){
-  a1_pars[ip] = new RooRealVar(Form("a1_bindFunction_%i", ip), "", a1_initParam[ip],a1_initParam[ip]-frac*fabs(a1_initParam[ip])-1.0e-07,a1_initParam[ip]+frac*fabs(a1_initParam[ip])+1.0e-07);
-  n1_pars[ip] = new RooRealVar(Form("n1_bindFunction_%i", ip), "", n1_initParam[ip],n1_initParam[ip]*-frac*fabs(n1_initParam[ip])-1.0e-07,n1_initParam[ip]+frac*fabs(n1_initParam[ip])+1.0e-07);
-  a2_pars[ip] = new RooRealVar(Form("a2_bindFunction_%i", ip), "", a2_initParam[ip],a2_initParam[ip]-frac*fabs(a2_initParam[ip])-1.0e-07,a2_initParam[ip]+frac*fabs(a2_initParam[ip])+1.0e-07);
-  n2_pars[ip] = new RooRealVar(Form("n2_bindFunction_%i", ip), "", n2_initParam[ip],n2_initParam[ip]-frac*fabs(n2_initParam[ip])-1.0e-07,n2_initParam[ip]+frac*fabs(n2_initParam[ip])+1.0e-07);
-  mean_pars[ip] = new RooRealVar(Form("mean_bindFunction_%i", ip), "", mean_initParam[ip],mean_initParam[ip]-frac*fabs(mean_initParam[ip])-1.0e-07,mean_initParam[ip]+frac*fabs(mean_initParam[ip])+1.0e-07);
-  sigma_pars[ip] = new RooRealVar(Form("sigma_bindFunction_%i", ip), "", sigma_initParam[ip],sigma_initParam[ip]-frac*fabs(sigma_initParam[ip])-1.0e-07,sigma_initParam[ip]+frac*fabs(sigma_initParam[ip])+1.0e-07);
+  a1_pars[ip] = new RooRealVar(Form("a1_bindFunction_%i", ip), "", a1_initParam[ip],a1_initParam[ip]-frac*fabs(a1_initParam[ip]),a1_initParam[ip]+frac*fabs(a1_initParam[ip]));
+  n1_pars[ip] = new RooRealVar(Form("n1_bindFunction_%i", ip), "", n1_initParam[ip],n1_initParam[ip]-frac*fabs(n1_initParam[ip]),n1_initParam[ip]+frac*fabs(n1_initParam[ip]));
+  a2_pars[ip] = new RooRealVar(Form("a2_bindFunction_%i", ip), "", a2_initParam[ip],a2_initParam[ip]-frac*fabs(a2_initParam[ip]),a2_initParam[ip]+frac*fabs(a2_initParam[ip]));
+  n2_pars[ip] = new RooRealVar(Form("n2_bindFunction_%i", ip), "", n2_initParam[ip],n2_initParam[ip]-frac*fabs(n2_initParam[ip]),n2_initParam[ip]+frac*fabs(n2_initParam[ip]));
+  mean_pars[ip] = new RooRealVar(Form("mean_bindFunction_%i", ip), "", mean_initParam[ip],mean_initParam[ip]-frac*fabs(mean_initParam[ip]),mean_initParam[ip]+frac*fabs(mean_initParam[ip]));
+  sigma_pars[ip] = new RooRealVar(Form("sigma_bindFunction_%i", ip), "", sigma_initParam[ip],sigma_initParam[ip]-frac*fabs(sigma_initParam[ip]),sigma_initParam[ip]+frac*fabs(sigma_initParam[ip]));
 
   a1_parList.add(*(a1_pars[ip]));
   a2_parList.add(*(a2_pars[ip]));
