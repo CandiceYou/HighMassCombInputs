@@ -5,9 +5,9 @@
 
 using namespace std;
 
-void getSelection(Sample s) {
+void getSelection(Sample s, char* fin) {
 HighMass h(s);
-h.makeSelectedTree();
+h.makeSelectedTree(fin);
 }
 
 void getEfficiency(Sample s) {
@@ -15,8 +15,8 @@ HighMass h(s);
 h.plotEfficiency();
 }
 
-void all(Sample mysample, const char* func) {
-if (strcmp(func,"sel")==0) getSelection(mysample);
+void all(Sample mysample, char* fin,const char* func) {
+if (strcmp(func,"sel")==0) getSelection(mysample,fin);
 else if (strcmp(func,"eff")==0) getEfficiency(mysample);
 }
 

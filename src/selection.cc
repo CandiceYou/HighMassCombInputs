@@ -10,7 +10,7 @@ HighMass::HighMass(Sample s){
 	this->sample = s;
 }
 
-void HighMass::readCandTree(){
+void HighMass::readCandTree(const char* fin){
 	//  char inputfile[PATH_MAX];
 	char inputfile[1000];
 	vector<TString> files_spin0ggH,files_spin0VBF,files_spin2;
@@ -65,6 +65,9 @@ void HighMass::readCandTree(){
                  candTree->Add(inputDir+"WZ2l2qDib/ZZ2l2qAnalysis.root");
                  candTree->Add(inputDir+"ZZ2l2qDib/ZZ2l2qAnalysis.root");
                  }
+        else if (sample == Custom) {
+                 candTree->Add(fin);
+                 }
 	else { cout <<"model doesn't exist!"<<endl; return;}
 
 	candTree->SetBranchAddress("ZZCandType",&ZZCandType);
@@ -99,7 +102,7 @@ void HighMass::readCandTree(){
 	candTree->SetBranchAddress("JetPt", &JetPt);
 }
 
-void HighMass::makeSelectedTree(){
+void HighMass::makeSelectedTree(const char* fin){
 
 
         TString finName=Form("2l2qSelectedTrees/2l2qtree_%s.root",sampleName[sample]);
@@ -108,14 +111,16 @@ void HighMass::makeSelectedTree(){
         cout<<"File "<<sampleName[sample]<<" already exists! Aborting.."<<endl;
         return;}
 
-        HighMass::readCandTree();
+        HighMass::readCandTree(fin);
 
-	float m2l2q_tmp,weight_tmp,Dbkg_0plus_tmp,Dbkg_2bplus_tmp,Dvbf_tmp,p0plus,p2bplus,pbkg,p0plus_up,p2bplus_up,pbkg_up,Dbkg_0plus_up_tmp,Dbkg_2bplus_up_tmp,p0plus_dn,p2bplus_dn,pbkg_dn,Dbkg_0plus_dn_tmp,Dbkg_2bplus_dn_tmp;
+	float m2l2q_tmp,mz1_tmp,mz2_tmp,weight_tmp,Dbkg_0plus_tmp,Dbkg_2bplus_tmp,Dvbf_tmp,p0plus,p2bplus,pbkg,p0plus_up,p2bplus_up,pbkg_up,Dbkg_0plus_up_tmp,Dbkg_2bplus_up_tmp,p0plus_dn,p2bplus_dn,pbkg_dn,Dbkg_0plus_dn_tmp,Dbkg_2bplus_dn_tmp;
 	short typ_tmp,lep_tmp,tag_tmp;
 
 	TTree *SelectedTree = new TTree("test","test");
 
 	SelectedTree->Branch("ZZMass",&m2l2q_tmp,"ZZMass/F");
+        SelectedTree->Branch("Z1Mass",&mz1_tmp,"Z1Mass/F");
+        SelectedTree->Branch("Z2Mass",&mz2_tmp,"Z2Mass/F");
 	SelectedTree->Branch("GenHMass",&GenHMass,"GenHMass/F");
 	SelectedTree->Branch("jetType",&typ_tmp,"jetType/S");
 	SelectedTree->Branch("lepFlav",&lep_tmp,"lepFlav/S");
@@ -227,6 +232,8 @@ void HighMass::makeSelectedTree(){
 			if (typ_tmp==0) m2l2q_tmp=ZZMass->at(candID);
 			else if (typ_tmp==1) m2l2q_tmp=ZZMassRefit->at(candID);
 
+                        mz1_tmp=Z1Mass->at(candID);
+                        mz2_tmp=Z2Mass->at(candID);
 			//bkg Discriminant
 			Dbkg_0plus_tmp=-1;Dbkg_0plus_dn_tmp=-1;Dbkg_0plus_up_tmp=-1;
                         Dbkg_2bplus_tmp=-1;Dbkg_2bplus_up_tmp=-1;Dbkg_2bplus_dn_tmp=-1;
@@ -298,6 +305,8 @@ void HighMass::makeSelectedTree(){
         // set public selTree
 	selTree->Add(Form("2l2qtree_%s.root",sampleName[sample]));
 	selTree->SetBranchAddress("ZZMass",&m2l2q);
+        selTree->SetBranchAddress("Z1Mass",&mz1);
+        selTree->SetBranchAddress("Z2Mass",&mz2);
 	selTree->SetBranchAddress("GenHMass",&mGen);
 	selTree->SetBranchAddress("weight",&weight);
 	selTree->SetBranchAddress("Dbkg_0plus",&Dbkg_0plus);

@@ -22,7 +22,7 @@ void HighMass::readResoDataset(const char* cType){
 	}
 	else{
 		cout<<"Making selected tree!"<<endl;
-		HighMass::makeSelectedTree();
+		HighMass::makeSelectedTree("");
 		inTree=selTree;
 	}
 

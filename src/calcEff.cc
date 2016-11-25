@@ -25,7 +25,7 @@ void HighMass::plotEfficiency(){
 	}
 	else{ 
 		cout<<"Making selected tree!"<<endl;
-		HighMass::makeSelectedTree();
+		HighMass::makeSelectedTree("");
 		inTree=selTree;
 		inhgen=hgen;
 	}
@@ -51,9 +51,10 @@ void HighMass::plotEfficiency(){
 	TH1F* hreco[jetType][LepFlav][Tag];
 	TH1F* heff[jetType][LepFlav][Tag];
 	TGraphErrors *gr[jetType][LepFlav][Tag];
-
+        TGraphErrors *gr_all[jetType];
 
 	for (int i=0;i<jetType;i++) {
+
 		for (int j=0;j<LepFlav;j++) {
 			for (int k=0;k<Tag;k++) {
 				hreco[i][j][k] = new TH1F(Form("reco_jet%d_lep%d_tag%d",i,j,k),Form("reco_jet%d_lep%d_tag%d",i,j,k),Mmax,0,Mmax);
@@ -75,6 +76,9 @@ void HighMass::plotEfficiency(){
 	// get efficiency with error 
 
 	for (int i=0;i<jetType;i++) {
+                double massE[n], gen[n], genE[n], reco[n], recoE[n], eff[n], effE[n],eff_all[n], effE_all[n];;
+                                for (int b=0;b<n;b++){
+                                        eff_all[b]=0 ; effE_all[b]=0;}
 		for (int j=0;j<LepFlav;j++) {
 			for (int k=0;k<Tag;k++) {
 
@@ -83,7 +87,7 @@ void HighMass::plotEfficiency(){
 				double gen_raw[Mmax];
 				double reco_raw[Mmax];
 
-				double massE[n], gen[n], genE[n], reco[n], recoE[n], eff[n], effE[n];
+	//			double massE[n], gen[n], genE[n], reco[n], recoE[n], eff[n], effE[n];
 				double mass,width;
 
 				for (int bin=1;bin<=Mmax;bin++){
@@ -94,7 +98,7 @@ void HighMass::plotEfficiency(){
 				}
 				for (int b=0;b<n;b++){
 					gen[b]=0 ; reco[b]=0;genE[b]=0;recoE[b]=0;eff[b]=0; effE[b]=0;
-					mass = M[b];
+					mass = M[b]; massE[b]=0; //take mass points from mass array in ResoEff.h
 					if(mass<1000) width=25;
 					else if (mass>=1000 && mass<1500) width =50;
 					else if (mass>=1500 && mass<2000) width = 100;
@@ -122,11 +126,15 @@ void HighMass::plotEfficiency(){
 						effE[b]=0;
 					}
 					//cout<<"efficiency ["<<b<<"]="<<eff[b]<<endl;
+                                        eff_all[b]+=eff[b];
+                                        effE_all[b]+=effE[b];
 				}
 
 				gr[i][j][k] = new TGraphErrors (n,M,eff,massE,effE);
+
 			}
 		}
+                gr_all[i]= new TGraphErrors (n,M,eff_all,massE,effE_all);
 	}
 
 
@@ -224,12 +232,37 @@ void HighMass::plotEfficiency(){
 		mg->GetXaxis()->SetTitle("genHMass [GeV]");
 		mg->GetYaxis()->SetTitle("efficiency*acceptance");
 		mg->GetYaxis()->SetRangeUser(0,0.25);
-		if (sample==spin2) mg->GetYaxis()->SetRangeUser(0,0.3);
+		if (sample==spin2) mg->GetYaxis()->SetRangeUser(0,0.5);
 		mg->GetXaxis()->SetRangeUser(Mmin,Mmax);
 		leg->Draw();
 		c->Update();
 		c->SaveAs(Form("efficiency_%s_all_%s.png",sampleName[sample],lepName[j]));
 		c->SaveAs(Form("efficiency_%s_all_%s.pdf",sampleName[sample],lepName[j]));
 	}
+
+                TCanvas* c2 = new TCanvas("c2","c2", 1600,800);
+                c2->SetFillColor(0);
+                c2->SetRightMargin(0.18);
+                c2->cd();
+                TMultiGraph * mg2 = new TMultiGraph();
+                TLegend* leg2 = new TLegend(.83,0.3,0.99,.85);
+                leg2->SetFillColor(0);
+                leg2->SetBorderSize(0);
+                for (int i=0;i<jetType;i++) {
+                        mg2->Add(gr_all[i]);
+                        gr_all[i]->SetLineColor(col[0][i]);
+                        gr_all[i]->SetName(Form("%s_%s",sampleName[sample],jetName[i]));
+                        gr_all[i]->Write();
+                        leg2->AddEntry(gr_all[i],Form("%s",jetName[i]),"pl");
+                }
+                mg2->Draw("APL"); //for multigraph, must draw before change title/range
+                mg2->GetXaxis()->SetTitle("genHMass [GeV]");
+                mg2->GetYaxis()->SetTitle("efficiency*acceptance");
+                mg2->GetYaxis()->SetRangeUser(0,1);
+                leg2->Draw();
+                c2->Update();
+                c2->SaveAs(Form("efficiency_%s_all.png",sampleName[sample]));
+
 	fout->Close();
 }
+

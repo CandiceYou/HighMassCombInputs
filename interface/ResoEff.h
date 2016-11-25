@@ -3,8 +3,8 @@
 //#include "lib.h"
 #include "../include/fitFunction.cc"
 
-enum Sample {spin0_ggH=0, spin0_VBF=1, spin0_all=2, spin2=3, DYjets=4, TTBar=5, Diboson=6};
-const char* sampleName[] = {"spin0_ggH","spin0_VBF","spin0_all","spin2","DYjets","TTBar","Diboson"};
+enum Sample {spin0_ggH=0, spin0_VBF=1, spin0_all=2, spin2=3, DYjets=4, TTBar=5, Diboson=6, Custom=7};
+const char* sampleName[] = {"spin0_ggH","spin0_VBF","spin0_all","spin2","DYjets","TTBar","Diboson","testSample"};
 
 
 class HighMass{
@@ -44,7 +44,7 @@ class HighMass{
 
 		//selected tree (after calling 'makeSelectedTree', all variables here can be read directly by other methods)
 		TChain *selTree = new TChain("selectedTree","selectedTree");
-		float m2l2q=0,mGen=0,weight=0,Dbkg_0plus=0,Dbkg_2bplus=0,Dbkg_0plus_up=0,Dbkg_0plus_dn=0,Dbkg_2bplus_up=0,Dbkg_2bplus_dn=0,Dvbf=0;
+		float m2l2q=0,mz1=0,mz2=0,mGen=0,weight=0,Dbkg_0plus=0,Dbkg_2bplus=0,Dbkg_0plus_up=0,Dbkg_0plus_dn=0,Dbkg_2bplus_up=0,Dbkg_2bplus_dn=0,Dvbf=0;
 		short typ=0,lep=0,tag=0;
 
 		//t12 weight parameters
@@ -73,8 +73,8 @@ class HighMass{
 
 		Sample sample=spin0_ggH;
 		HighMass(Sample sample);
-		void readCandTree();
-		void makeSelectedTree();
+		void readCandTree(const char* fin);
+		void makeSelectedTree(const char* fin);
 		void plotEfficiency();
                 void makeSelectedTree_4l();
                 void plotEfficiency_4l();
