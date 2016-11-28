@@ -27,4 +27,4 @@ root -l -n -b -q normTempl.c\(2,\"JECup\"\)
 root -l -n -b -q normTempl.c\(2,\"JECdn\"\)
 
 #check 1D slices
-root -l -n -b -q checkTempl.c 
+root -l -b -q checkTempl_1Dslice_2Dsys.c
