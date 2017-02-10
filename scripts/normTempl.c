@@ -12,7 +12,7 @@ using namespace std;
 
 void normTempl(int spin=2 ,char*JEC ="nominal",  bool check=0){
 
-	TFile* file = TFile::Open(Form("/afs/cern.ch/work/c/cayou/HighMass_RunII/CMSSW_7_6_3/src/ZZAnalysis/AnalysisStep/test/CombInputs/TemplateBuilder/2l2q_spin%d_smooth_%s.root",spin,JEC));
+        TFile* file = TFile::Open(Form("../../TemplateBuilder/2l2q_spin%d_smooth_%s.root",spin,JEC));
 	const int nProcess=8;
 	char* process[nProcess]={"DY_resolved","DY_merged","TTbar_resolved","TTbar_merged","Diboson_resolved","Diboson_merged","sig_resolved","sig_merged"};
 	TH2F* histSm[nProcess];
@@ -31,7 +31,7 @@ void normTempl(int spin=2 ,char*JEC ="nominal",  bool check=0){
 	}
 
 
-	//plotting smoothed template
+	//plotting smoothed un-normalized template
 	gStyle->SetPalette(1);
 	if (check==1){
 		for(int i=0;i<nProcess;i++){

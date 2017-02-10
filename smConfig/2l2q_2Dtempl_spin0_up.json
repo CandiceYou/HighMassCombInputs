@@ -1,6 +1,6 @@
 // Configuration options
 {
-        "inputDirectory":"/afs/cern.ch/work/c/cayou/HighMass_RunII/CMSSW_7_6_3/src/ZZAnalysis/AnalysisStep/test/CombInputs/HighMassStudy_2l2q/run/2l2qSelectedTrees",
+        "inputDirectory":"../HighMassCombInputs/run/2l2qSelectedTrees",
 	"outputFile":"2l2q_spin0_smooth_JECup.root",
 	"templates":[
                 {

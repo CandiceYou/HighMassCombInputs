@@ -11,7 +11,11 @@ HighMass::HighMass(Sample s){
 }
 
 void HighMass::readCandTree(const char* fin){
-	//  char inputfile[PATH_MAX];
+
+//add files from different dir
+//        TString  inputDir2 = "/afs/cern.ch/work/c/cayou/public/80Xsamples/2l2qsamples_170107/"; 
+        TString  inputDir2 = "root://eoscms//eos/cms/store/caf/user/sudha/ZZ2l2q/Moriond2017/V1/";
+
 	char inputfile[1000];
 	vector<TString> files_spin0ggH,files_spin0VBF,files_spin2;
 
@@ -39,32 +43,96 @@ void HighMass::readCandTree(const char* fin){
 			candTree->Add(inputDir+(*file));}
 	else if (sample == spin0_VBF){ //spin0 VBF
 		for (vector<TString>::const_iterator file = files_spin0VBF.begin(); file!=files_spin0VBF.end(); ++file)
-			candTree->Add(inputDir+(*file));}
+			candTree->Add(inputDir+(*file));
+                candTree->Add(inputDir2+"VBFHiggs1500.root");
+                candTree->Add(inputDir2+"VBFHiggs2000.root");
+                candTree->Add(inputDir2+"VBFHiggs2500.root");
+                candTree->Add(inputDir2+"VBFHiggs3000.root");
+                }
         else if (sample == spin0_all){ //spin0 ggH+VBF
                 for (vector<TString>::const_iterator file = files_spin0ggH.begin(); file!=files_spin0ggH.end(); ++file)
                         candTree->Add(inputDir+(*file));
                 for (vector<TString>::const_iterator file = files_spin0VBF.begin(); file!=files_spin0VBF.end(); ++file)
-                        candTree->Add(inputDir+(*file));}
+                { candTree->Add(inputDir+(*file));
+                candTree->Add(inputDir2+"VBFHiggs1500.root");
+                candTree->Add(inputDir2+"VBFHiggs2000.root");
+                candTree->Add(inputDir2+"VBFHiggs2500.root");
+                candTree->Add(inputDir2+"VBFHiggs3000.root");}
+                }
 	else if (sample == spin2){ //spin2
 		for (vector<TString>::const_iterator file = files_spin2.begin(); file!=files_spin2.end(); ++file)
 			candTree->Add(inputDir+(*file));}
         else if (sample == DYjets) {
+/*
                  candTree->Add(inputDir+"DY1JetsToLL/ZZ2l2qAnalysis.root");
                  candTree->Add(inputDir+"DY2JetsToLL/ZZ2l2qAnalysis.root");
                  candTree->Add(inputDir+"DY3JetsToLL/ZZ2l2qAnalysis.root");
                  candTree->Add(inputDir+"DY4JetsToLL/ZZ2l2qAnalysis.root");
                  candTree->Add(inputDir+"DYBFiltJetsToLL/ZZ2l2qAnalysis.root");
                  candTree->Add(inputDir+"DYBJetsToLL/ZZ2l2qAnalysis.root");
+*/
+                 candTree->Add(inputDir2+"DY1Jet.root");
+                 candTree->Add(inputDir2+"DY2Jet.root");
+                 candTree->Add(inputDir2+"DY3Jet.root");
+                 candTree->Add(inputDir2+"DY4Jet.root");
+                 candTree->Add(inputDir2+"DYJetsToLL_BGenFilter.root");
+                 candTree->Add(inputDir2+"DYBJetsToLL.root");
                  }
         else if (sample == TTBar) {
+/*
                  candTree->Add(inputDir+"TTBar/ZZ2l2qAnalysis.root");
                  candTree->Add(inputDir+"WW2l2nDib/ZZ2l2qAnalysis.root");
+*/
+                 candTree->Add(inputDir2+"TTBar.root");
                  }
         else if (sample == Diboson) {
+/*
                  candTree->Add(inputDir+"WZ3lnDib/ZZ2l2qAnalysis.root");
                  candTree->Add(inputDir+"WZ2l2qDib/ZZ2l2qAnalysis.root");
                  candTree->Add(inputDir+"ZZ2l2qDib/ZZ2l2qAnalysis.root");
+*/
+                 candTree->Add(inputDir2+"WZDiboson.root");
+                 candTree->Add(inputDir2+"ZZDiboson.root");
                  }
+        else if (sample == data) {
+                 candTree->Add(inputDir2+"DoubleEG2016B.root");
+                 candTree->Add(inputDir2+"DoubleEG2016C.root");
+                 candTree->Add(inputDir2+"DoubleEG2016D.root");
+                 candTree->Add(inputDir2+"DoubleEG2016E.root");
+                 candTree->Add(inputDir2+"DoubleEG2016F.root");
+                 candTree->Add(inputDir2+"DoubleEG2016G.root");
+                 candTree->Add(inputDir2+"DoubleEG2016Hv1.root");
+                 candTree->Add(inputDir2+"DoubleEG2016Hv2.root");
+                 candTree->Add(inputDir2+"DoubleEG2016Hv3.root");
+                 candTree->Add(inputDir2+"DoubleMu2016B.root");
+                 candTree->Add(inputDir2+"DoubleMu2016C.root");
+                 candTree->Add(inputDir2+"DoubleMu2016D.root");
+                 candTree->Add(inputDir2+"DoubleMu2016E.root");
+                 candTree->Add(inputDir2+"DoubleMu2016F.root");
+                 candTree->Add(inputDir2+"DoubleMu2016G.root");
+                 candTree->Add(inputDir2+"DoubleMu2016Hv1.root");
+                 candTree->Add(inputDir2+"DoubleMu2016Hv2.root");
+                 candTree->Add(inputDir2+"DoubleMu2016Hv3.root");
+                 candTree->Add(inputDir2+"SingleEG2016B.root");
+                 candTree->Add(inputDir2+"SingleEG2016C.root");
+                 candTree->Add(inputDir2+"SingleEG2016D.root");
+                 candTree->Add(inputDir2+"SingleEG2016E.root");
+                 candTree->Add(inputDir2+"SingleEG2016F.root");
+                 candTree->Add(inputDir2+"SingleEG2016G.root");
+                 candTree->Add(inputDir2+"SingleEG2016Hv1.root");
+                 candTree->Add(inputDir2+"SingleEG2016Hv2.root");
+                 candTree->Add(inputDir2+"SingleEG2016Hv3.root");
+                 candTree->Add(inputDir2+"SingleMu2016B.root");
+                 candTree->Add(inputDir2+"SingleMu2016C.root");
+                 candTree->Add(inputDir2+"SingleMu2016D.root");
+                 candTree->Add(inputDir2+"SingleMu2016E.root");
+                 candTree->Add(inputDir2+"SingleMu2016F.root");
+                 candTree->Add(inputDir2+"SingleMu2016G.root");
+                 candTree->Add(inputDir2+"SingleMu2016Hv1.root");
+                 candTree->Add(inputDir2+"SingleMu2016Hv2.root");
+                 candTree->Add(inputDir2+"SingleMu2016Hv3.root");
+                 }
+
         else if (sample == Custom) {
                  candTree->Add(fin);
                  }
