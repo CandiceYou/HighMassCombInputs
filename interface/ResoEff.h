@@ -3,23 +3,23 @@
 //#include "lib.h"
 #include "../include/fitFunction.cc"
 
-enum Sample {spin0_ggH=0, spin0_VBF=1, spin0_all=2, spin2=3, DYjets=4, TTBar=5, Diboson=6, Custom=7};
-const char* sampleName[] = {"spin0_ggH","spin0_VBF","spin0_all","spin2","DYjets","TTBar","Diboson","testSample"};
+enum Sample {spin0_ggH=0, spin0_VBF=1, spin0_all=2, spin2=3, DYjets=4, TTBar=5, Diboson=6, data=7, Custom=8};
+const char* sampleName[] = {"spin0_ggH","spin0_VBF","spin0_all","spin2","DYjets","TTBar","Diboson","data","testSample"};
 
 
 class HighMass{
 
 	private:
 
-		TString  inputDir = "/afs/cern.ch/work/c/cayou/public/80Xsamples/2l2qsamples_1010/";
+//		TString  inputDir = "/afs/cern.ch/work/c/cayou/public/80Xsamples/2l2qsamples_1010/";
+//		int inputfiles_spin0ggH[18]={200,250,300,350,400,450,500,550,600,700,750,800,900,1000,1500,2000,2500,3000};
+//              int inputfiles_spin0VBF[18]={200,250,300,350,400,450,500,550,600,700,750,800,900,1000,1500,2000,2500,3000};
+//		int inputfiles_spin2[6]={750,800,1200,2000,3000,4000};
 
-		int inputfiles_spin0ggH[18]={200,250,300,350,400,450,500,550,600,700,750,800,900,1000,1500,2000,2500,3000};
-                int inputfiles_spin0VBF[18]={200,250,300,350,400,450,500,550,600,700,750,800,900,1000,1500,2000,2500,3000};
-		int inputfiles_spin2[6]={750,800,1200,2000,3000,4000};
-
-//		int inputfiles_spin0ggH[4]={350,1000,2000,3000};
-//		int inputfiles_spin0VBF[4]={300,1000,2000,3000};
-//		int inputfiles_spin2[5]={750,1200,2000,3000,4000};
+                TString  inputDir = "/afs/cern.ch/user/t/tomei/public/HZZ2L2Q/Moriond2017/V1/";
+                int inputfiles_spin0ggH[18]={200,250,300,350,400,450,500,550,600,700,750,800,900,1000,1500,2000,2500,3000};
+                int inputfiles_spin0VBF[12]={250,350,400,450,500,550,600,700,750,800,900,1000};
+		int inputfiles_spin2[1]={750};
 
 		int Nfiles_spin0ggH=sizeof(inputfiles_spin0ggH)/sizeof(*inputfiles_spin0ggH);
 		int Nfiles_spin0VBF=sizeof(inputfiles_spin0VBF)/sizeof(*inputfiles_spin0VBF);
