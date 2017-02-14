@@ -16,7 +16,7 @@ root -l -n -b -q all.c\(Custom,\"/afs/cern.ch/work/c/cayou/public/80Xsamples/2l2
 comment
 
 ### Efficiency ###
-<<comment
+#<<comment
 if [ ! -d "2l2qEfficiency" ]; then
   mkdir 2l2qEfficiency
 fi
@@ -29,9 +29,10 @@ done
 
 mv efficiency*.* 2l2qEfficiency
 mv 2l2qtree*.root 2l2qSelectedTrees
-comment
+#comment
 
 ### 2D Templates ###
+<<comment
 #make selected trees as input for smoothing, for spin0 ggH and VBF are combined into spin0_all
 for model in spin0_all DYjets TTBar Diboson data #spin2
 do
@@ -44,6 +45,7 @@ mv 2l2qtree*.root 2l2qSelectedTrees
 #spin-2 part is commented out in run2l2q_Templ.sh, uncomment when needed
 echo "running templates"
 bash run2l2q_Templ.sh
+comment
 
 ### Resolution ###
 #currently using only spin-0 resolution for both spin-0 and spin-2
