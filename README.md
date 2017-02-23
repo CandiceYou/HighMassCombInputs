@@ -27,6 +27,6 @@ to /TemplateBuilder/run/
 /2l2q2DTemplate/spin2/1DSlices/*.png
 
 useful ones are:
-- sig vs DY bkg: spin0_*_DY_*.png
-- all mass slices together: spin0_*_1D_all.png (this also give you binning information)
+ sig vs DY bkg: spin0_*_DY_*.png
+ all mass slices together: spin0_*_1D_all.png (this also give you binning information)
 
