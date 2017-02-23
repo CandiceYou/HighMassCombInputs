@@ -30,7 +30,7 @@ to /TemplateBuilder/run/
 
 useful ones are:
 
- 1,sig vs DY bkg: spin0_*_DY_*.png
+ sig vs DY bkg: spin0_*_DY_*.png
  
- 2,all mass slices together: spin0_*_1D_all.png (this also give you binning information)
+ all mass slices together: spin0_*_1D_all.png (this also give you binning information)
 
