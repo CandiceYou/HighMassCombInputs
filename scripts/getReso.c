@@ -6,12 +6,10 @@
 
 using namespace std;
 
-void getReso(Sample s=spin0_all) {
+void getReso(Sample s=spin0_all,const char* cType="resolved") {
 HighMass h(s);
-h.readResoDataset("resolved");
-h.fitReso("resolved");
-h.readResoDataset("merged");
-h.fitReso("merged");
+h.readResoDataset(cType);
+h.fitReso(cType);
 }
 
 

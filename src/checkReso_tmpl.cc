@@ -8,7 +8,9 @@ void HighMass::checkReso(const char* cType){
         for (int i=0; i<maxMassBin; i++) {
                 sprintf(tempmass,"mh%d",massBin[i]);
                 massrc.defineType(tempmass,massBin[i]);
-                width[i] = 3.21246+0.0312538*(massBin[i])-7.29127e-07*(massBin[i])*(massBin[i]);
+//                width[i] = 3.21246+0.0312538*(massBin[i])-7.29127e-07*(massBin[i])*(massBin[i]); // Original
+                width[i] = 3.55539+0.00585224*(massBin[i])+2.40607e-05*(massBin[i])*(massBin[i]); // New resolved
+//                width[i] = 2.67895+0.0307989*(massBin[i])-1.4816e-06*(massBin[i])*(massBin[i]); // New merged
                 xMin[i] = width[i]*(-25);
                 xMax[i] = width[i]*(25);
                 yMin[i] = width[i]*(-25)+massBin[i];

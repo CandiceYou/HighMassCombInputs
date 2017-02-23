@@ -19,12 +19,14 @@ cp ../../scripts/getReso.c .
 cp ../../scripts/resoClosure.c .
 cp ../../src/checkReso_tmpl.cc .
 
-#make dataset and single mass fit, for both resolved and merged
-root -l -n -b -q getReso.c\(${model}\)
-
 #fit dCB parameters, and closure test
 for cat in "merged" "resolved"
 do
+
+#make dataset and single mass fit, for both resolved and merged
+root -l -n -b -q getReso.c\(${model},\"$cat\"\)
+mv 2l2qtree*.root ../2l2qSelectedTrees
+
 echo " calculating resolution for ${cat}"
 rm params/individual_fit_param_${cat}.txt
 bash readParam_single.sh $cat
