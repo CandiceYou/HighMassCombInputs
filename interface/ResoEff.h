@@ -59,7 +59,8 @@ class HighMass{
 
 		//resolution
 //		int massBin[1]={400}; //mass points for fitting
-                int massBin[25]={400,450,500,550,600,700,750,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200,3400,3600,3800,4000};
+    int massBin[25]={400,450,500,550,600,700,750,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200,3400,3600,3800,4000}; //merged 
+//    int massBin[23]={400,450,500,550,600,700,750,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200,3400,3600}; //resolved
 		int maxMassBin=sizeof(massBin)/sizeof(*massBin);;
 		char tempmass[100],tempmass2[100];
 		double width[100],xMin[100],xMax[100],yMin[100],yMax[100]; //range of individual fit

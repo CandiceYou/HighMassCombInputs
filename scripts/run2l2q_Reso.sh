@@ -20,7 +20,7 @@ cp ../../scripts/resoClosure.c .
 cp ../../src/checkReso_tmpl.cc .
 
 #fit dCB parameters, and closure test
-for cat in "merged" "resolved"
+for cat in "merged"
 do
 
 #make dataset and single mass fit, for both resolved and merged

@@ -4,9 +4,9 @@
 
 void HighMass::readResoDataset(const char* cType){
 
-        TString finName=Form("../2l2qSelectedTrees/2l2qtree_%s.root",sampleName[sample]);
+  TString finName=Form("../2l2qSelectedTrees/2l2qtree_%s.root",sampleName[sample]);
 	TFile *fin;
-	TTree* inTree;
+  TTree* inTree;
 	bool fileExist=(!gSystem->AccessPathName(finName));
 
 	if(fileExist){
@@ -26,13 +26,12 @@ void HighMass::readResoDataset(const char* cType){
 		inTree=selTree;
 	}
 
-
 	for (int i=0; i<maxMassBin; i++) {
 		sprintf(tempmass,"mh%d",massBin[i]);
 		massrc.defineType(tempmass,massBin[i]);
 //		width[i] = 3.21246+0.0312538*(massBin[i])-7.29127e-07*(massBin[i])*(massBin[i]); //Original
-    width[i] = 3.55539+0.00585224*(massBin[i])+2.40607e-05*(massBin[i])*(massBin[i]); // New resolved
-//    width[i] = 2.67895+0.0307989*(massBin[i])-1.4816e-06*(massBin[i])*(massBin[i]); // New merged
+//    width[i] = 3.55539+0.00585224*(massBin[i])+2.40607e-05*(massBin[i])*(massBin[i]); // New resolved
+    width[i] = 2.67895+0.0307989*(massBin[i])-1.4816e-06*(massBin[i])*(massBin[i]); // New merged
 		xMin[i] = width[i]*(-25);
 		xMax[i] = width[i]*(25);
 		yMin[i] = width[i]*(-25)+massBin[i];
@@ -67,19 +66,16 @@ void HighMass::readResoDataset(const char* cType){
 
 			}
 		}
-
-
-	}
-
+  }
 
 	cout << "dataset n entries: " << dataset->sumEntries() << endl;
 
 	TFile *fout = new TFile(Form("resoDataset_%s.root",cType),"recreate");
 	fout->cd();
-
-	dataset->Write("alldata");
-
-	for (int i=0; i<maxMassBin; i++) {
+	
+  dataset->write("alldata"); //FIXME: using Write() causes problems
+	
+  for (int i=0; i<maxMassBin; i++) {
 		sprintf(tempmass2,"massrc == massrc::mh%d",massBin[i]);
 		dataset_sub[i]= (RooDataSet*)dataset->reduce(tempmass2);
 		cout << "dataset_sub["<<i<<"] n entries: " << dataset_sub[i]->sumEntries() << endl;
@@ -90,14 +86,12 @@ void HighMass::readResoDataset(const char* cType){
 }
 
 void HighMass::fitReso(const char* cType){
-
-
 	for (int i=0; i<maxMassBin; i++) {
 		sprintf(tempmass,"mh%d",massBin[i]);
 		massrc.defineType(tempmass,massBin[i]);
 //		width[i] = 3.21246+0.0312538*(massBin[i])-7.29127e-07*(massBin[i])*(massBin[i]); //Original
-    width[i] = 3.55539+0.00585224*(massBin[i])+2.40607e-05*(massBin[i])*(massBin[i]); // New resolved
-//    width[i] = 2.67895+0.0307989*(massBin[i])-1.4816e-06*(massBin[i])*(massBin[i]); // New merged
+//    width[i] = 3.55539+0.00585224*(massBin[i])+2.40607e-05*(massBin[i])*(massBin[i]); // New resolved
+    width[i] = 2.67895+0.0307989*(massBin[i])-1.4816e-06*(massBin[i])*(massBin[i]); // New merged
 
 		xMin[i] = width[i]*(-25);
 		xMax[i] = width[i]*(25);
@@ -106,10 +100,10 @@ void HighMass::fitReso(const char* cType){
 	}
 
 	TFile *fin = TFile::Open(Form("resoDataset_%s.root",cType));
-	RooDataSet* dataset = (RooDataSet*)fin->Get("alldata");
-	cout << "dataset n entries: " << dataset->sumEntries() << endl;
-
-
+	
+  RooDataSet* dataset = (RooDataSet*)fin->Get("alldata");
+//  cout << "dataset n entries: " << dataset->sumEntries() << endl; //FIXME: do not use "alldata"
+ 
 	//fitting
 
 	//	RooDoubleCB* DCBall[100];

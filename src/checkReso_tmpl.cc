@@ -9,8 +9,8 @@ void HighMass::checkReso(const char* cType){
                 sprintf(tempmass,"mh%d",massBin[i]);
                 massrc.defineType(tempmass,massBin[i]);
 //                width[i] = 3.21246+0.0312538*(massBin[i])-7.29127e-07*(massBin[i])*(massBin[i]); // Original
-                width[i] = 3.55539+0.00585224*(massBin[i])+2.40607e-05*(massBin[i])*(massBin[i]); // New resolved
-//                width[i] = 2.67895+0.0307989*(massBin[i])-1.4816e-06*(massBin[i])*(massBin[i]); // New merged
+//                width[i] = 3.55539+0.00585224*(massBin[i])+2.40607e-05*(massBin[i])*(massBin[i]); // New resolved
+                width[i] = 2.67895+0.0307989*(massBin[i])-1.4816e-06*(massBin[i])*(massBin[i]); // New merged
                 xMin[i] = width[i]*(-25);
                 xMax[i] = width[i]*(25);
                 yMin[i] = width[i]*(-25)+massBin[i];
@@ -19,7 +19,7 @@ void HighMass::checkReso(const char* cType){
 
         TFile *fin = TFile::Open(Form("resoDataset_%s.root",cType));
         RooDataSet* dataset = (RooDataSet*)fin->Get("alldata");
-        cout << "dataset n entries: " << dataset->sumEntries() << endl;
+  //      cout << "dataset n entries: " << dataset->sumEntries() << endl; //FIXME: do not use "alldata"
 
 
   bool fixParam = true;
@@ -131,7 +131,7 @@ void HighMass::checkReso(const char* cType){
     rs_shift.addPdf(*DCBall_shift[i], tempmass);
     }
 
-    RooFitResult *fitressim = (RooFitResult*)rs.fitTo(*dataset,Strategy(2),Range("fitRange"),SplitRange());
+//buggy    RooFitResult *fitressim = (RooFitResult*)rs.fitTo(*dataset,Strategy(2),Range("fitRange"),SplitRange());
     RooArgSet * params2 = rs.getParameters(RooArgList(x,massrc));
     char paramfilename[100];
     sprintf(paramfilename,"closureTest/fix_param_%s.txt",cType);
@@ -147,6 +147,8 @@ void HighMass::checkReso(const char* cType){
     pad2->Draw();
 
   for (int i=0; i<maxMassBin; i++) {
+  //  use individual dataset instead of alldata
+    dataset = fin->Get(Form("resoDataset_mh%d",massBin[i]));
 
     sprintf(tempmass,"mh%d",massBin[i]);
     sprintf(tempmass2,"massrc == massrc::mh%d",massBin[i]);

@@ -16,7 +16,7 @@ root -l -n -b -q all.c\(Custom,\"/afs/cern.ch/work/c/cayou/public/80Xsamples/2l2
 comment
 
 ### Efficiency ###
-#<<comment
+<<comment
 if [ ! -d "2l2qEfficiency" ]; then
   mkdir 2l2qEfficiency
 fi
@@ -29,7 +29,7 @@ done
 
 mv efficiency*.* 2l2qEfficiency
 mv 2l2qtree*.root 2l2qSelectedTrees
-#comment
+comment
 
 ### 2D Templates ###
 <<comment
@@ -49,7 +49,7 @@ comment
 
 ### Resolution ###
 #currently using only spin-0 resolution for both spin-0 and spin-2
-<<comment
+#<<comment
 for model in spin0_all 
 do
 echo "running $model resolution"
@@ -59,4 +59,4 @@ done
 
 echo "Done! Deleting.."
 rm all.c run2l2q_Reso.sh run2l2q_Templ.sh
-comment
+#comment
